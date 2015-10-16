@@ -33,16 +33,16 @@ namespace WpfApplication1
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            string nameText = textBox1.Text;
-            string schoolText = textBox.Text;
+            string nameText = this.textBox1.Text;
+            string schoolText = this.textBox.Text;
 
             // school変数に学校名を設定
             School school = new School();
             school.Name = schoolText;
 
             // データベースにschoolを登録
-            context.School.InsertOnSubmit(school);
-            context.SubmitChanges();
+            this.context.School.InsertOnSubmit(school);
+            this.context.SubmitChanges();
 
             // student変数に氏名を設定
             Student student = new Student();
@@ -50,12 +50,12 @@ namespace WpfApplication1
             student.SchoolId = school.Id;
 
             // データベースにstudentを登録
-            context.Student.InsertOnSubmit(student);
-            context.SubmitChanges();
+            this.context.Student.InsertOnSubmit(student);
+            this.context.SubmitChanges();
             
             // 画面表示用コレクションにschoolを登録
             this.observableStudent.Add(student);
-            this.dataGrid.ItemsSource = observableStudent;        
+            this.dataGrid.ItemsSource = this.observableStudent;        
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -69,8 +69,8 @@ namespace WpfApplication1
             this.context = new DataClassesDataContext(connection);
 
             // 画面表示用コレクションをデータベースに格納されているStudent全てで初期化
-            this.observableStudent = new ObservableCollection<Student>(context.Student);
-            this.dataGrid.ItemsSource = observableStudent;
+            this.observableStudent = new ObservableCollection<Student>(this.context.Student);
+            this.dataGrid.ItemsSource = this.observableStudent;
         }
     }
 }
